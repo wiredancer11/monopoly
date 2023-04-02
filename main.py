@@ -1,8 +1,9 @@
 import random
+import json
 
 
 class Property:
-	def __init__(self, id, name, price, rent, group):
+	def __init__(self, id, name, price, rent, group, housecost):
 		self.id = id
 		self.name = name
 		self.price = price
@@ -10,6 +11,7 @@ class Property:
 		self.buildings = 0
 		self.rent = rent
 		self.group = group
+		self.househost = househost
 
 
 	def set_owner(self, owner):
@@ -17,8 +19,6 @@ class Property:
 	
 
 
-class Bank:
-	pass
 
 class Player:
 	def __init__(self):
@@ -32,5 +32,24 @@ class Player:
 		self.money -= property.price
 		property.set_owner(self)
 
+
+class Chance:
+	def __init__(self, action, amount):
+		self.action = action
+		self.amount = amount
+
+class Chest:
+	def __init__(self, action, amount):
+		pass	
+
 class Game:
-	pass
+	def __init__(self):
+		streets = []
+		with open('src/monopoly.json') as f:
+			game_data = json.loads(f.read()).items()
+			for key, value in game_data['properties']:
+				street = Street(value[)
+			
+			
+			
+	
