@@ -3,7 +3,7 @@
     {
       "name": "Mediterranean Avenue",
       "id": "mediterraneanave",
-      "posistion": 2,
+      "position": 2,
       "price": 60,
       "rent": 2,
       "multpliedrent": [
@@ -32,7 +32,7 @@
     {
       "name": "Baltic Avenue",
       "id": "balticave",
-      "posistion": 4,
+      "position": 4,
       "price": 60,
       "rent": 4,
       "multpliedrent": [
@@ -61,7 +61,7 @@
     {
       "name": "Oriental Avenue",
       "id": "orientalave",
-      "posistion": 7,
+      "position": 7,
       "price": 100,
       "rent": 6,
       "multpliedrent": [
@@ -89,7 +89,7 @@
     {
       "name": "Vermont Avenue",
       "id": "vermontave",
-      "posistion": 9,
+      "position": 9,
       "price": 100,
       "rent": 6,
       "multpliedrent": [
@@ -117,7 +117,7 @@
     {
       "name": "Connecticut Avenue",
       "id": "connecticutave",
-      "posistion": 10,
+      "position": 10,
       "price": 120,
       "rent": 8,
       "multpliedrent": [
@@ -145,7 +145,7 @@
     {
       "name": "St. Charles Place",
       "id": "stcharlesplace",
-      "posistion": 12,
+      "position": 12,
       "price": 140,
       "rent": 10,
       "multpliedrent": [
@@ -173,7 +173,7 @@
     {
       "name": "States Avenue",
       "id": "statesave",
-      "posistion": 14,
+      "position": 14,
       "price": 140,
       "rent": 10,
       "multpliedrent": [
@@ -201,7 +201,7 @@
     {
       "name": "Virginia Avenue",
       "id": "virginiaave",
-      "posistion": 15,
+      "position": 15,
       "price": 160,
       "rent": 12,
       "multpliedrent": [
@@ -229,7 +229,7 @@
     {
       "name": "St. James Place",
       "id": "stjamesplace",
-      "posistion": 17,
+      "position": 17,
       "price": 180,
       "rent": 14,
       "multpliedrent": [
@@ -257,7 +257,7 @@
     {
       "name": "Tennessee Avenue",
       "id": "tennesseeave",
-      "posistion": 19,
+      "position": 19,
       "price": 180,
       "rent": 14,
       "multpliedrent": [
@@ -285,7 +285,7 @@
     {
       "name": "New York Avenue",
       "id": "newyorkave",
-      "posistion": 20,
+      "position": 20,
       "price": 200,
       "rent": 16,
       "multpliedrent": [
@@ -313,7 +313,7 @@
     {
       "name": "Kentucky Avenue",
       "id": "kentuckyave",
-      "posistion": 22,
+      "position": 22,
       "price": 220,
       "rent": 18,
       "multpliedrent": [
@@ -341,7 +341,7 @@
     {
       "name": "Indiana Avenue",
       "id": "indianaave",
-      "posistion": 24,
+      "position": 24,
       "price": 220,
       "rent": 18,
       "multpliedrent": [
@@ -369,7 +369,7 @@
     {
       "name": "Illinois Avenue",
       "id": "illinoisave",
-      "posistion": 25,
+      "position": 25,
       "price": 240,
       "rent": 20,
       "multpliedrent": [
@@ -397,7 +397,7 @@
     {
       "name": "Atlantic Avenue",
       "id": "atlanticave",
-      "posistion": 27,
+      "position": 27,
       "price": 260,
       "rent": 22,
       "multpliedrent": [
@@ -425,7 +425,7 @@
     {
       "name": "Ventnor Avenue",
       "id": "ventnorave",
-      "posistion": 28,
+      "position": 28,
       "price": 260,
       "rent": 22,
       "multpliedrent": [
@@ -453,7 +453,7 @@
     {
       "name": "Marvin Gardens",
       "id": "marvingardens",
-      "posistion": 30,
+      "position": 30,
       "price": 280,
       "rent": 22,
       "multpliedrent": [
@@ -481,7 +481,7 @@
     {
       "name": "Pacific Avenue",
       "id": "pacificave",
-      "posistion": 32,
+      "position": 32,
       "price": 300,
       "rent": 26,
       "multpliedrent": [
@@ -509,7 +509,7 @@
     {
       "name": "North Carolina Avenue",
       "id": "northcarolinaave",
-      "posistion": 33,
+      "position": 33,
       "price": 300,
       "rent": 26,
       "multpliedrent": [
@@ -537,7 +537,7 @@
     {
       "name": "Pennsylvania Avenue",
       "id": "pennsylvaniaave",
-      "posistion": 35,
+      "position": 35,
       "price": 320,
       "rent": 28,
       "multpliedrent": [
@@ -565,7 +565,7 @@
     {
       "name": "Park Place",
       "id": "parkplace",
-      "posistion": 38,
+      "position": 38,
       "price": 350,
       "rent": 35,
       "multpliedrent": [
@@ -593,7 +593,7 @@
     {
       "name": "Boardwalk",
       "id": "boardwalk",
-      "posistion": 40,
+      "position": 40,
       "price": 400,
       "rent": 50,
       "multpliedrent": [
@@ -621,7 +621,7 @@
     {
       "name": "Electric Company",
       "id": "electriccompany",
-      "posistion": 13,
+      "position": 13,
       "price": 150,
       "group": "Utilities",
       "ownedby": -1,
@@ -638,7 +638,7 @@
     {
       "name": "Water Works",
       "id": "waterworks",
-      "posistion": 29,
+      "position": 29,
       "price": 150,
       "group": "Utilities",
       "ownedby": -1,
@@ -655,7 +655,7 @@
     {
       "name": "Reading Railroad",
       "id": "readingrailroad",
-      "posistion": 6,
+      "position": 6,
       "price": 200,
       "group": "Railroad",
       "ownedby": -1,
@@ -673,7 +673,7 @@
     {
       "name": "Pennsylvania Railroad",
       "id": "pennsylvaniarailroad",
-      "posistion": 16,
+      "position": 16,
       "price": 200,
       "group": "Railroad",
       "ownedby": -1,
@@ -690,7 +690,7 @@
     {
       "name": "B. & O. Railroad",
       "id": "borailroad",
-      "posistion": 26,
+      "position": 26,
       "price": 200,
       "group": "Railroad",
       "ownedby": -1,
@@ -701,7 +701,7 @@
     {
       "name": "Short Line Railroad",
       "id": "shortlinerailroad",
-      "posistion": 36,
+      "position": 36,
       "price": 200,
       "group": "Railroad",
       "ownedby": -1,
@@ -712,7 +712,7 @@
     {
       "name": "Go",
       "id": "go",
-      "posistion": 0,
+      "position": 1,
       "group": "Special",
       "rel": {
         "Square": "Go",
@@ -725,6 +725,7 @@
     {
       "name": "Income Tax",
       "id": "incometax",
+      "position": 5,
       "group": "Special",
       "rel": {
         "Square": "Income Tax",
@@ -737,7 +738,7 @@
     {
       "name": "Jail / Just Visiting",
       "id": "jail",
-      "posistion": 10,
+      "position": 11,
       "group": "Special",
       "averageProbability": 8.897
     },
@@ -745,6 +746,33 @@
       "name": "Chance",
       "id": "chance",
       "group": "Special",
+      "position": 8,
+      "rel": {
+        "Square": "Chance",
+        "Probability % (Jail Short)": 0.865,
+        "Rank": 40,
+        "Probability % (Jail Long)": 0.8152
+      },
+      "averageProbability": 0.8401000000000001
+    },
+    {
+      "name": "Chance",
+      "id": "chance",
+      "group": "Special",
+      "position": 23,
+      "rel": {
+        "Square": "Chance",
+        "Probability % (Jail Short)": 0.865,
+        "Rank": 40,
+        "Probability % (Jail Long)": 0.8152
+      },
+      "averageProbability": 0.8401000000000001
+    },
+    {
+      "name": "Chance",
+      "id": "chance",
+      "group": "Special",
+      "position":37,
       "rel": {
         "Square": "Chance",
         "Probability % (Jail Short)": 0.865,
@@ -756,6 +784,7 @@
     {
       "name": "Free Parking",
       "id": "freeparking",
+      "position": 21,
       "group": "Special",
       "rel": {
         "Square": "Free Parking",
@@ -768,6 +797,33 @@
     {
       "name": "Community Chest",
       "id": "communitychest",
+      "position": 3,
+      "group": "Special",
+      "rel": {
+        "Square": "Community Chest",
+        "Probability % (Jail Short)": 1.8849,
+        "Rank": 37,
+        "Probability % (Jail Long)": 1.775
+      },
+      "averageProbability": 1.82995
+    },
+    {
+      "name": "Community Chest",
+      "id": "communitychest",
+      "position": 18,
+      "group": "Special",
+      "rel": {
+        "Square": "Community Chest",
+        "Probability % (Jail Short)": 1.8849,
+        "Rank": 37,
+        "Probability % (Jail Long)": 1.775
+      },
+      "averageProbability": 1.82995
+    },
+    {
+      "name": "Community Chest",
+      "id": "communitychest",
+      "position": 34,
       "group": "Special",
       "rel": {
         "Square": "Community Chest",
@@ -780,6 +836,7 @@
     {
       "name": "Go To Jail",
       "id": "gotojail",
+      "position": 31,
       "group": "Special",
       "rel": {
         "Square": "Go To Jail",
@@ -792,6 +849,7 @@
     {
       "name": "Luxury Tax",
       "id": "luxerytax",
+      "position": 39,
       "group": "Special",
       "averageProbability": 2.116
     }
@@ -875,11 +933,6 @@
       "title": "Get out of Jail Free - This card may be kept until needed, or traded/sold",
       "action": "jail",
       "subaction": "getout"
-    },
-    {
-      "title": "Go Back 3 Spaces",
-      "action": "move",
-      "count": -3
     },
     {
       "title": "Go to Jail - Go directly to Jail - Do not pass Go, do not collect $200",
