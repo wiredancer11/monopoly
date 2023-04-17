@@ -11,6 +11,7 @@ FREE_PARKING_POSITION = 20
 GO_TO_JAIL_POSITION = 30
 RAILROADS_POSITIONS= [5, 15, 25, 35]
 UTILITIES_POSITIONS = [12, 28]
+COLORS = {'red': (237, 27, 36), 'brown': (149, 84, 54), 'yellow': (254, 242, 0), 'pink': (217, 58, 150), 'orange': (248, 147, 29), 'darkgreen': (31, 178, 90), 'lightblue': (170, 224, 250), 'darkblue': (0, 114, 187)}
 
 class Card:
 	def __init__(self, position, name, id):
@@ -139,7 +140,11 @@ class Player:
 				elif type(card).__name__== 'Railroad':
 					rent = len(card.owner.railroads) * 25
 				else:
-					rent = card.rent
+					multiplier = 2
+					for street in game.get_streets_by_color(card.group):
+						if street not in self.streets:
+							multiplier = 1
+					rent = card.rent * multiplier
 				return self.pay_other_player(card.owner, rent)
 			else:
 				print(f"{self.name} has landed on his own card: {card.name}")
@@ -164,7 +169,6 @@ class Player:
 				return f'{self.name} is resting in a free parking'
 			elif id == 'gotojail':
 				self.position = JAIL_POSITION
-				print(self.position, JAIL_POSITION)
 				self.in_jail = True
 				print(f'{self.name} commits a crime and goes to jail')
 				return f'{self.name} commits a crime and goes to jail'
@@ -399,13 +403,17 @@ class Game:
 			stats_player.blit(self.font.render((jail_message), True, (255, 0, 0)), (5,45))
 			stats_player.blit(self.font.render(('Posessions'), True, (0, 0, 0)), (5, 65))
 			next_string_coords_y = 85
+			streets_color_sorted = sorted(player.streets, key=lambda x: x.group)
 			for j in range(3):
-				property_type_list =[player.streets, player.railroads, player.utilities][j] 
+				property_type_list =[streets_color_sorted, player.railroads, player.utilities][j] 
 				property_type_name = ['Streets', 'Railroads', 'Utilities'][j]
 				stats_player.blit(self.font.render((property_type_name + ':'), True, (0, 0, 0)), (15, next_string_coords_y))
 				next_string_coords_y += 20
 				for k in range(len(property_type_list)):
-					stats_player.blit(self.font.render((property_type_list[k].name), True, (0, 0, 0)), (25, next_string_coords_y))
+					property = property_type_list[k]
+					if property_type_name == 'Streets':
+						pygame.draw.rect(stats_player, COLORS.get(property.group), pygame.Rect(5, next_string_coords_y, 10, 10) )
+					stats_player.blit(self.font.render((property.name), True, (0, 0, 0)), (25, next_string_coords_y))
 					next_string_coords_y += 20
 				next_string_coords_y += 20
 
@@ -440,7 +448,12 @@ class Game:
 
 
 
-
+	def get_streets_by_color(self, color):
+		streets = []
+		for street in self.streets:
+			if street.group == color:
+				streets.append(street)
+		return streets
 
 
 

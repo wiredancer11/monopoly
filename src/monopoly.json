@@ -14,7 +14,7 @@
         250
       ],
       "housecost": 50,
-      "group": "Purple",
+      "group": "brown",
       "ownedby": -1,
       "buildings": 0,
       "mortgaged": false,
@@ -43,7 +43,7 @@
         450
       ],
       "housecost": 50,
-      "group": "Purple",
+      "group": "brown",
       "ownedby": -1,
       "buildings": 0,
       "mortgaged": false,
@@ -72,7 +72,7 @@
         550
       ],
       "housecost": 50,
-      "group": "lightgreen",
+      "group": "lightblue",
       "ownedby": -1,
       "buildings": 0,
       "mortgaged": false,
@@ -100,7 +100,7 @@
         550
       ],
       "housecost": 50,
-      "group": "lightgreen",
+      "group": "lightblue",
       "ownedby": -1,
       "buildings": 0,
       "mortgaged": false,
@@ -128,7 +128,7 @@
         600
       ],
       "housecost": 50,
-      "group": "lightgreen",
+      "group": "lightblue",
       "ownedby": -1,
       "buildings": 0,
       "mortgaged": false,
@@ -156,7 +156,7 @@
         750
       ],
       "housecost": 100,
-      "group": "Violet",
+      "group": "pink",
       "ownedby": -1,
       "buildings": 0,
       "mortgaged": false,
@@ -184,7 +184,7 @@
         750
       ],
       "housecost": 100,
-      "group": "Violet",
+      "group": "pink",
       "ownedby": -1,
       "buildings": 0,
       "mortgaged": false,
@@ -212,7 +212,7 @@
         900
       ],
       "housecost": 100,
-      "group": "Violet",
+      "group": "pink",
       "ownedby": -1,
       "buildings": 0,
       "mortgaged": false,
@@ -240,7 +240,7 @@
         950
       ],
       "housecost": 100,
-      "group": "Orange",
+      "group": "orange",
       "ownedby": -1,
       "buildings": 0,
       "mortgaged": false,
@@ -268,7 +268,7 @@
         950
       ],
       "housecost": 100,
-      "group": "Orange",
+      "group": "orange",
       "ownedby": -1,
       "buildings": 0,
       "mortgaged": false,
@@ -296,7 +296,7 @@
         1000
       ],
       "housecost": 100,
-      "group": "Orange",
+      "group": "orange",
       "ownedby": -1,
       "buildings": 0,
       "mortgaged": false,
@@ -324,7 +324,7 @@
         1050
       ],
       "housecost": 150,
-      "group": "Red",
+      "group": "red",
       "ownedby": -1,
       "buildings": 0,
       "mortgaged": false,
@@ -352,7 +352,7 @@
         1050
       ],
       "housecost": 150,
-      "group": "Red",
+      "group": "red",
       "ownedby": -1,
       "buildings": 0,
       "mortgaged": false,
@@ -380,7 +380,7 @@
         1100
       ],
       "housecost": 150,
-      "group": "Red",
+      "group": "red",
       "ownedby": -1,
       "buildings": 0,
       "mortgaged": false,
@@ -408,7 +408,7 @@
         1150
       ],
       "housecost": 150,
-      "group": "Yellow",
+      "group": "yellow",
       "ownedby": -1,
       "buildings": 0,
       "mortgaged": false,
@@ -436,7 +436,7 @@
         1150
       ],
       "housecost": 150,
-      "group": "Yellow",
+      "group": "yellow",
       "ownedby": -1,
       "buildings": 0,
       "mortgaged": false,
@@ -464,7 +464,7 @@
         1200
       ],
       "housecost": 150,
-      "group": "Yellow",
+      "group": "yellow",
       "ownedby": -1,
       "buildings": 0,
       "mortgaged": false,
