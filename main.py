@@ -1,10 +1,7 @@
 import random
-from copy import deepcopy
 import json
 import pygame
 import time
-import color, stddraw
-from picture import Picture
 
 JAIL_POSITION = 10
 FREE_PARKING_POSITION = 20
@@ -30,12 +27,13 @@ class Property(Card):
 
 
 class Street(Property):
-	def __init__(self, position, name, id, price, rent, group, housecost):
+	def __init__(self, position, name, id, price, rent, group, housecost, multiplied_rent):
 		super().__init__(position, name, id, price)
-		self.buildings = 8
+		self.buildings = 0
 		self.rent = rent
 		self.group = group
 		self.househost = housecost
+		self.multiplied_rent = multiplied_rent
 
 
 class Utility(Property):
@@ -122,15 +120,17 @@ class Player:
 		print(f"{self.name} couldn't get out of jail")
 		return f"{self.name} couldn't get out of jail"
 
+
 	def action(self, card, dice_value=None):
 		card_type = type(card).__name__
+		message = ''
 		if type(card).__bases__[0].__name__ == 'Property':
 			if card.owner is None:
 				if self.money >= card.price:
 					return self.buy_property(card)
 				else:
 					print(f"{self.name} can't afford {card.name}")
-					return f"{self.name} can't afford {card.name}"
+					message += f"{self.name} can't afford {card.name}\n"
 			elif card.owner is not self:
 				if type(card).__name__ == 'Utility':
 					if len(card.owner.utilities) == 1:
@@ -140,49 +140,67 @@ class Player:
 				elif type(card).__name__== 'Railroad':
 					rent = len(card.owner.railroads) * 25
 				else:
-					multiplier = 2
-					for street in game.get_streets_by_color(card.group):
-						if street not in self.streets:
-							multiplier = 1
-					rent = card.rent * multiplier
-				return self.pay_other_player(card.owner, rent)
+					if card.buildings > 0:
+						rent = card.multiplied_rent[card.buildings - 1]
+					else:
+						rent = card.rent * (1 + int(card.owner.check_color_monopoly(card.group)))
+
+				message += self.pay_other_player(card.owner, rent) + '\n'
 			else:
 				print(f"{self.name} has landed on his own card: {card.name}")
-				return f"{self.name} has landed on his own card: {card.name}"
+				message += f"{self.name} has landed on his own card: {card.name}\n"
+
 				
 
 		elif card_type == 'Special':
 			id = card.id
 			if id == 'incometax':
-				return self.pay_tax(200)
+				message += self.pay_tax(200) + '\n'
 			elif id == 'jail':
 				if self.in_jail:
-					return self.leave_jail()
+					message += self.leave_jail()+ '\n'
 				else:
 					print(f'{self.name} is just visiting the jail')
-					return f'{self.name} is just visiting the jail'
+					message += f'{self.name} is just visiting the jail'+ '\n'
 			elif id == 'chance' or id == 'communitychest':
 				effect = random.choice(game.chance_cards + game.chests)
-				return self.get_effect(effect)
+				message += self.get_effect(effect)+ '\n'
 			elif id == 'freeparking':
 				print(f'{self.name} is resting in a free parking')
-				return f'{self.name} is resting in a free parking'
+				message += f'{self.name} is resting in a free parking'+ '\n'
 			elif id == 'gotojail':
 				self.position = JAIL_POSITION
 				self.in_jail = True
 				print(f'{self.name} commits a crime and goes to jail')
-				return f'{self.name} commits a crime and goes to jail'
+				message += f'{self.name} commits a crime and goes to jail'+ '\n'
 			elif id == 'luxurytax':
-				return self.pay_tax(100)
+				message += self.pay_tax(100)+ '\n'
 			elif id == 'go':
 				print(f"{self.name} has just landed on the go square")
-				return f"{self.name} has just landed on the go square"
+				message += f"{self.name} has just landed on the go square"+ '\n'
+
+
+		for color in COLORS.keys():
+			if self.check_color_monopoly(color):
+				potential_house_street = sorted(filter(lambda x: x.group == color, game.streets), key=lambda x: x.buildings)[0]
+				if self.money - potential_house_street.househost > 200 and potential_house_street.buildings < 4:
+					self.money -= potential_house_street.househost
+					potential_house_street.buildings += 1 
+					print(f"{self.name} bought a house on {potential_house_street.name}")
+					message += f"{self.name} bought a house on {potential_house_street.name}\n"
+		return message
+
+	def check_color_monopoly(self, color):
+		if set(filter(lambda x: x.group == color, self.streets)) == set(filter(lambda x: x.group == color, game.streets)):
+			return True
+		return False
+
 
 	def get_effect(self, card):
 		if card.action == 'move':
 			id = card.tileid
 			new_card = self.game.get_card_by_id(id)
-			return self.go_to_card(new_card)
+			return card.title + '\n' + self.go_to_card(new_card)
 
 		elif card.action == 'addfunds':
 			self.money += card.amount
@@ -204,6 +222,11 @@ class Player:
 				self.money -= card.amount
 		elif card.action == 'removefunds':
 			self.money -= card.amount
+		elif card.action == 'propertycharges':
+			buildings = 0
+			for street in self.streets:
+				buildings += street.buildings
+			self.money -= buildings * card.buildings
 		elif card.action == 'movenearest':
 			nearest_distance = 100
 			nearest_card = None
@@ -216,7 +239,7 @@ class Player:
 				if distance < nearest_distance:
 					nearest_distance = distance
 					nearest_card = self.game.cards[card_position]
-			return self.go_to_card(nearest_card)
+			return card.title + '\n' + self.go_to_card(nearest_card)
 		print(self.name + ': ' + card.title)
 		return self.name + ': ' + card.title
 
@@ -261,6 +284,7 @@ class Game:
 		self.players = []
 		self.is_finished = False
 		self.dice_value = None
+		pygame.font.init()
 		print(pygame.font.get_fonts())
 		self.font = pygame.font.SysFont('Arial', 15)
 		with open('src/monopoly.json') as f:
@@ -274,7 +298,7 @@ class Game:
 				elif card['group'].lower() == 'special':
 					self.special.append(Special(card['position'], card['name'], card['id']))
 				else:
-					street = Street(card['position'], card['name'], card['id'], card['price'] ,card['rent'] ,card['group'] ,card['housecost'])
+					street = Street(card['position'], card['name'], card['id'], card['price'] ,card['rent'] ,card['group'] ,card['housecost'], card['multipliedrent'])
 					self.streets.append(street)
 			self.cards = self.railroads + self.utilities + self.streets + self.special
 			self.cards.sort(key=lambda x: x.position)
@@ -319,12 +343,15 @@ class Game:
 
 	def play(self):
 		self.players = [Player('Player 1', game), Player('Player 2', game)]
+		self.players[0].buy_property(self.cards[1])
+		self.players[0].buy_property(self.cards[3])
 
 		turn = 0
 		self.draw_players()
 		self.screen.blit(self.field_image, ((self.screen_w - self.field_w) // 2, 10))
 		pygame.display.flip()
-		time.sleep(5)
+		#time.sleep(5)
+		input()
 		while not self.is_finished:
 			for event in pygame.event.get():
 				if event.type == pygame.QUIT:
@@ -334,19 +361,19 @@ class Game:
 			self.dice_value = dice1 + dice2
 
 			current_player = self.players[turn]
-			additional_message = ''
+			message = ''
 			if current_player.in_jail:
 				new_position = current_player.position
 			else:
 				new_position = (current_player.position + self.dice_value) % 40
 				if current_player.position + self.dice_value > 40:
 					current_player.money += 200
-					additional_message = f'{current_player.name} crossed the Go tile and gets 200$ from the Bank'
+					message += f'{current_player.name} crossed the Go tile and gets 200$ from the Bank'
 			current_card = self.cards[new_position]
-			message = current_player.go_to_card(current_card)
+			message = message + '\n' + current_player.go_to_card(current_card)
 			turn  = (turn + 1) % 2
 			if current_player.money < 0:
-				message = self.declare_winner(self.players[turn])
+				message += self.declare_winner(self.players[turn])
 			self.draw_dices(dice1, dice2)
 			self.show_stats()
 			self.screen.blit(self.field_image, ((self.screen_w - self.field_w) // 2, 10))
@@ -358,7 +385,7 @@ class Game:
 			self.draw_dices(dice1, dice2)
 			self.draw_players()
 			self.show_stats()
-			self.show_message(message, additional_message)
+			self.show_message(message)
 			self.screen.blit(self.field_image, ((self.screen_w - self.field_w) // 2, 10))
 			
 			pygame.display.flip()
@@ -380,11 +407,14 @@ class Game:
 		self.field_image.blit(dice_image2, (560, 700))
 
 
-	def show_message(self, message, additional_message):
-		self.message_box = pygame.Surface((500, 50))	
+	def show_message(self, message):
+		self.message_box = pygame.Surface((500, 100))	
 		self.message_box.fill((220, 220, 220, 0.3))
-		self.message_box.blit(self.font.render((message), True, (0, 0, 0)), (5, 25))
-		self.message_box.blit(self.font.render((additional_message), True, (0, 0, 0)), (5, 5))
+		messages = message.split('\n')
+		next_string_coords_y = 5
+		for message in messages:
+			self.message_box.blit(self.font.render((message), True, (0, 0, 0)), (5, next_string_coords_y))
+			next_string_coords_y += 20
 		self.field_image.blit(self.message_box, (180, 600))
 	
 
@@ -413,6 +443,8 @@ class Game:
 					property = property_type_list[k]
 					if property_type_name == 'Streets':
 						pygame.draw.rect(stats_player, COLORS.get(property.group), pygame.Rect(5, next_string_coords_y, 10, 10) )
+						if property.buildings > 0:
+							stats_player.blit(self.font.render((str(property.buildings) + 'H'), True, (0, 0, 0)), (270, next_string_coords_y))
 					stats_player.blit(self.font.render((property.name), True, (0, 0, 0)), (25, next_string_coords_y))
 					next_string_coords_y += 20
 				next_string_coords_y += 20
