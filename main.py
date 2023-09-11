@@ -330,16 +330,21 @@ class Game:
 			self.dice_value = dice1 + dice2
 
 			current_player = self.players[turn]
+			additional_message = ''
 			if current_player.in_jail:
 				new_position = current_player.position
 			else:
 				new_position = (current_player.position + self.dice_value) % 40
+				if current_player.position + self.dice_value > 40:
+					current_player.money += 200
+					additional_message = f'{current_player.name} crossed the Go tile and gets 200$ from the Bank'
 			current_card = self.cards[new_position]
 			message = current_player.go_to_card(current_card)
 			turn  = (turn + 1) % 2
 			if current_player.money < 0:
 				message = self.declare_winner(self.players[turn])
 			self.draw_dices(dice1, dice2)
+			self.show_stats()
 			self.screen.blit(self.field_image, ((self.screen_w - self.field_w) // 2, 10))
 			pygame.display.update()
 			#time.sleep(2)
@@ -349,8 +354,7 @@ class Game:
 			self.draw_dices(dice1, dice2)
 			self.draw_players()
 			self.show_stats()
-			self.show_message(message)
-			print(message + 'lol')
+			self.show_message(message, additional_message)
 			self.screen.blit(self.field_image, ((self.screen_w - self.field_w) // 2, 10))
 			
 			pygame.display.flip()
@@ -372,26 +376,43 @@ class Game:
 		self.field_image.blit(dice_image2, (560, 700))
 
 
-	def show_message(self, message):
-		self.message_box = pygame.Surface((500, 30))	
+	def show_message(self, message, additional_message):
+		self.message_box = pygame.Surface((500, 50))	
 		self.message_box.fill((220, 220, 220, 0.3))
-		self.message_box.blit(self.font.render((message), True, (255, 0, 0)), (5, 5))
-		self.field_image.blit(self.message_box, (120, 600))
+		self.message_box.blit(self.font.render((message), True, (0, 0, 0)), (5, 25))
+		self.message_box.blit(self.font.render((additional_message), True, (0, 0, 0)), (5, 5))
+		self.field_image.blit(self.message_box, (180, 600))
 	
 
 	def show_stats(self):
-		player1, player2 = self.players[0], self.players[1]
-		stats_player1 = pygame.Surface((400, 1000))
-		stats_player2 = pygame.Surface((400, 1000))
+		
+		for i in range(len(self.players)):
+			player = self.players[i]
+			stats_player = pygame.Surface((400, 1000))
+			stats_player.fill((255, 255, 255))
+			stats_player.blit(self.font.render((player.name), True, (0, 0, 0)), (5,5))
+			stats_player.blit(self.font.render(('Balance: ' + str(player.money) + '$'), True, (0, 0, 0)), (5, 25))
+			if player.in_jail:
+				jail_message = 'In jail'
+			else:
+				jail_message = ''
+			stats_player.blit(self.font.render((jail_message), True, (255, 0, 0)), (5,45))
+			stats_player.blit(self.font.render(('Posessions'), True, (0, 0, 0)), (5, 65))
+			next_string_coords_y = 85
+			for j in range(3):
+				property_type_list =[player.streets, player.railroads, player.utilities][j] 
+				property_type_name = ['Streets', 'Railroads', 'Utilities'][j]
+				stats_player.blit(self.font.render((property_type_name + ':'), True, (0, 0, 0)), (15, next_string_coords_y))
+				next_string_coords_y += 20
+				for k in range(len(property_type_list)):
+					stats_player.blit(self.font.render((property_type_list[k].name), True, (0, 0, 0)), (25, next_string_coords_y))
+					next_string_coords_y += 20
+				next_string_coords_y += 20
 
-		stats_player1.fill((255, 255, 255))
-		stats_player2.fill((255, 255, 255))
 
-		stats_player1.blit(self.font.render((player1.name), True, (0, 0, 0)), (5,5))
-		stats_player2.blit(self.font.render((player2.name), True, (0, 0, 0)), (5,5))
 
-		self.screen.blit(stats_player1, (5, 5))
-		self.screen.blit(stats_player2, (1450, 5))
+			self.screen.blit(stats_player, (5 + ( 600 + self.field_w) * i , 5))
+			print(5 + ( 400 + self.field_w) * i )
 
 
 	def draw_players(self):
